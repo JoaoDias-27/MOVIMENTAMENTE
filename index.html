@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Movimentamente — Portal do Estudante</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="assets/img/movimentamente-logo.jpg" rel="icon" type="image/jpeg"/>
 <link href="assets/shared.css?v=20260820-01" rel="stylesheet"/></head>
@@ -135,7 +135,210 @@
 <div class="feedback-summary" id="feedbackSummary"></div>
 </div>
 </section>
+<!-- 3. MOVIMENTO E BEM-ESTAR (inclui Saúde Mental, Sono e Cidadania) -->
+<section class="page" id="page-movimento">
+<span class="eyebrow">Bem-estar do estudante</span>
+<h2 class="section-title">Movimento e Bem-estar</h2>
+<p class="section-sub">A prática regular de atividade física melhora a concentração, o humor e a qualidade do sono. Confira sugestões simples para incluir movimento na rotina.</p>
+<div class="grid cols-3" id="movGrid">
+<div class="card grad-card g-green"><div aria-hidden="true" class="icon-badge" data-icon="stretch"></div><h3>Alongamento (5 min)</h3><p>Alongue pescoço, braços e pernas entre uma aula e outra para aliviar tensões.</p></div>
+<div class="card grad-card g-teal"><div aria-hidden="true" class="icon-badge" data-icon="walk"></div><h3>Caminhada ativa</h3><p>Caminhar 20 minutos por dia já traz benefícios para o corpo e para a mente.</p></div>
+<div class="card grad-card g-blue"><div aria-hidden="true" class="icon-badge" data-icon="team-sport"></div><h3>Esporte em grupo</h3><p>Praticar esportes coletivos fortalece o corpo e também a convivência entre colegas.</p></div>
 </div>
-<script src="assets/app.js?v=20260904-01"></script>
-</body>
+<div class="card" style="margin-top:16px;">
+<h3 class="title-with-icon"><span aria-hidden="true" class="ui-icon ui-icon--title" data-icon="challenge"></span>Desafio da semana</h3>
+<p>Marque as atividades conforme for completando ao longo da semana (o progresso fica salvo só neste dispositivo, durante esta visita). Os desafios são definidos pelo professor.</p>
+<div id="challengeList" style="margin-top:14px; display:grid; gap:10px;"></div>
+</div>
+<h3 style="margin-top:30px;">Saúde Mental</h3>
+<p class="section-sub">Cuidar da mente é parte essencial da vida escolar. Aqui você encontra orientações simples para lidar com ansiedade, estresse e emoções do dia a dia.</p>
+<div class="tool-box" style="margin-bottom:22px;">
+<label>Como você está se sentindo hoje?</label>
+<div class="mood-row" id="moodRow"></div>
+<div class="mood-result" id="moodResult"></div>
+</div>
+<div class="tip-list">
+<div class="tip"><div class="num">1</div><div><strong>Respiração consciente</strong><span>Inspire em 4 segundos, segure por 4 e solte em 6. Repita 5 vezes antes de uma prova ou situação tensa.</span></div></div>
+<div class="tip"><div class="num">2</div><div><strong>Fale sobre o que sente</strong><span>Conversar com um professor, orientador ou colega de confiança ajuda a organizar pensamentos e aliviar o peso emocional.</span></div></div>
+<div class="tip"><div class="num">3</div><div><strong>Pausas curtas ajudam</strong><span>A cada 40-50 minutos de estudo, faça uma pausa de 5 a 10 minutos para descansar a mente.</span></div></div>
+<div class="tip"><div class="num">4</div><div><strong>Evite comparação excessiva</strong><span>Cada pessoa tem seu próprio ritmo de aprendizagem. Compare seu progresso com você mesmo, não com os outros.</span></div></div>
+<div class="tip"><div class="num">5</div><div><strong>Procure ajuda quando precisar</strong><span>Buscar apoio psicológico ou pedagógico é um sinal de cuidado consigo mesmo, não de fraqueza.</span></div></div>
+</div>
+<h3 style="margin-top:30px;">Sono e Qualidade de Vida</h3>
+<p class="section-sub">Dormir bem melhora a memória, o foco nos estudos e o equilíbrio emocional. Veja boas práticas de higiene do sono e use a calculadora abaixo.</p>
+<div class="grid cols-2">
+<div class="tool-box">
+<h3 style="margin-top:0;">Calculadora de sono</h3>
+<label>A que horas você precisa acordar?</label>
+<input id="wakeTime" type="time" value="06:30"/>
+<button class="btn-solid" onclick="calcSleep()">Calcular melhor horário para dormir</button>
+<div class="result-box" id="sleepResult"></div>
+</div>
+<div class="tip-list">
+<div class="tip"><div class="num">1</div><div><strong>Rotina fixa</strong><span>Durma e acorde sempre nos mesmos horários, inclusive nos fins de semana.</span></div></div>
+<div class="tip"><div class="num">2</div><div><strong>Longe das telas</strong><span>Evite celular e computador pelo menos 30 minutos antes de dormir.</span></div></div>
+<div class="tip"><div class="num">3</div><div><strong>Ambiente adequado</strong><span>Quarto escuro, silencioso e em temperatura agradável favorece o sono profundo.</span></div></div>
+</div>
+</div>
+<h3 style="margin-top:30px;">Cidadania e Convivência Democrática</h3>
+<p class="section-sub">A escola é um espaço de convivência entre diferentes pessoas e ideias. Praticar o diálogo e o respeito fortalece a comunidade escolar.</p>
+<div class="grid cols-2">
+<div class="card"><h3 class="title-with-icon"><span aria-hidden="true" class="ui-icon ui-icon--title" data-icon="vote"></span>Participação estudantil</h3><p>Conheça e participe do grêmio estudantil, assembleias de turma e outras formas de representação dos estudantes.</p></div>
+<div class="card"><h3 class="title-with-icon"><span aria-hidden="true" class="ui-icon ui-icon--title" data-icon="dialogue"></span>Diálogo e escuta</h3><p>Ouvir opiniões diferentes das suas, com respeito, é a base da convivência democrática dentro e fora da escola.</p></div>
+<div class="card"><h3 class="title-with-icon"><span aria-hidden="true" class="ui-icon ui-icon--title" data-icon="balance"></span>Resolução de conflitos</h3><p>Conflitos são naturais. O importante é buscar solução através do diálogo, mediação e respeito mútuo.</p></div>
+<div class="card"><h3 class="title-with-icon"><span aria-hidden="true" class="ui-icon ui-icon--title" data-icon="globe"></span>Diversidade</h3><p>Respeitar diferenças de origem, crença, gênero e opinião é fundamental para uma convivência saudável.</p></div>
+</div>
+</section>
+<!-- 4. BIBLIOTECA -->
+<section class="page" id="page-biblioteca">
+<span class="eyebrow">Materiais</span>
+<h2 class="section-title">Biblioteca Movimentamente</h2>
+<p class="section-sub">Textos, links e materiais de apoio selecionados pela equipe do projeto. Use os filtros para encontrar conteúdos por tema.</p>
+<div class="filter-row" id="libFilters"></div>
+<div id="libraryList"><p style="color:var(--ink-soft);">Carregando biblioteca…</p></div>
+</section>
+<!-- 5. QUIZ -->
+<section class="page" id="page-quiz">
+<span class="eyebrow">Aprenda brincando</span>
+<h2 class="section-title">Quiz Movimentamente</h2>
+<p class="section-sub">Responda às perguntas e veja o quanto você já sabe sobre os pilares do projeto.</p>
+<div id="quizModulePicker"></div>
+<div class="quiz-progress" id="quizProgressWrap" style="display:none;"><div id="quizProgressBar" style="width:0%"></div></div>
+<div id="quizArea"></div>
+</section>
+<!-- 6. ATIVIDADES (por módulo) -->
+<section class="page" id="page-atividades">
+<span class="eyebrow">Para você</span>
+<h2 class="section-title">Atividades por módulo</h2>
+<p class="section-sub">As atividades publicadas pelos professores, organizadas por módulo de conteúdo.</p>
+<div id="atividadesModulesView"><p style="color:var(--ink-soft);">Carregando atividades…</p></div>
+</section>
+<!-- 7. VÍDEOS (por módulo) -->
+<section class="page" id="page-videos">
+<span class="eyebrow">Assista e aprenda</span>
+<h2 class="section-title">Vídeos por módulo</h2>
+<p class="section-sub">Vídeos selecionados pelos professores, organizados por módulo de conteúdo.</p>
+<div id="videosModulesView"><p style="color:var(--ink-soft);">Carregando vídeos…</p></div>
+</section>
+<!-- ÁREA DO PROFESSOR -->
+<section class="page" id="page-professor">
+<span class="eyebrow">Acesso restrito</span>
+<h2 class="section-title">Área do Professor</h2>
+<div id="loginArea">
+<div class="login-box">
+<div aria-hidden="true" class="lock" data-icon="teacher-lock"></div>
+<h3 style="margin:0;">Acesso restrito</h3>
+<p style="color:var(--ink-soft); font-size:.87rem;">Digite a senha de acesso para publicar e editar atividades e materiais.</p>
+<div class="password-field">
+<input id="profPass" onkeydown="if(event.key==='Enter')doLogin()" placeholder="Senha de acesso" type="password"/>
+<button aria-label="Mostrar senha" class="password-toggle" onclick="toggleTeacherPassword()" type="button"><span aria-hidden="true" class="ui-icon ui-icon--button" data-icon="eye"></span></button>
+</div>
+<div class="err-msg" id="loginErr"></div>
+<button class="btn-solid" onclick="doLogin()" style="width:100%;">Entrar</button>
+</div>
+</div>
+<div id="adminArea" style="display:none;">
+<div class="banner-note"><strong>Modo administrador:</strong> aqui você controla o conteúdo publicado no portal. As alterações são salvas automaticamente no armazenamento do site. Vídeos e atividades podem ter Thumbnail, e o mesmo conteúdo publicado aparece para os estudantes.</div>
+<div class="admin-shell">
+<aside class="admin-sidebar">
+<div class="admin-sidebar-title">Painel de controle</div>
+<button class="admin-nav-btn active" data-admin-section="dashboard" onclick="openAdminSection('dashboard')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="dashboard"></span><span>Visão geral</span></button>
+<button class="admin-nav-btn" data-admin-section="paginas" onclick="openAdminSection('paginas')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="pages"></span><span>Páginas do site</span></button>
+<button class="admin-nav-btn" data-admin-section="atividades" onclick="openAdminSection('atividades')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="student-space"></span><span>Atividades</span></button>
+<button class="admin-nav-btn" data-admin-section="desafios" onclick="openAdminSection('desafios')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="challenge"></span><span>Desafios da Semana</span></button>
+<button class="admin-nav-btn" data-admin-section="biblioteca" onclick="openAdminSection('biblioteca')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="library"></span><span>Biblioteca</span></button>
+<button class="admin-nav-btn" data-admin-section="quiz" onclick="openAdminSection('quiz')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="quiz"></span><span>Quiz</span></button>
+<button class="admin-nav-btn" data-admin-section="videos" onclick="openAdminSection('videos')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="video"></span><span>Vídeos</span></button>
+<button class="admin-nav-btn" data-admin-section="mensagens" onclick="openAdminSection('mensagens')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="mail"></span><span>Mensagens</span></button>
+<button class="admin-nav-btn" data-admin-section="config" onclick="openAdminSection('config')"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="settings"></span><span>Configurações</span></button>
+<button class="admin-nav-btn" onclick="doLogout()"><span aria-hidden="true" class="ui-icon ui-icon--nav" data-icon="logout"></span><span>Sair</span></button>
+</aside>
+<main class="admin-main">
+<div class="admin-header">
+<div><h3 id="adminPageTitle">Painel do Professor</h3><p id="adminPageSubtitle">Gerencie o conteúdo do Movimentamente de forma organizada.</p></div>
+<button class="btn-outline" onclick="doLogout()">Sair</button>
+</div>
+<section class="admin-section active" id="admin-sec-dashboard">
+<div class="stats-grid">
+<div class="stat-card"><strong id="statPages">12</strong><span>Páginas disponíveis</span></div>
+<div class="stat-card"><strong id="statActivities">0</strong><span>Atividades</span></div>
+<div class="stat-card"><strong id="statLibrary">0</strong><span>Materiais</span></div>
+<div class="stat-card"><strong id="statQuiz">0</strong><span>Perguntas de quiz</span></div>
+<div class="stat-card"><strong id="statVideos">0</strong><span>Vídeos</span></div>
+<div class="stat-card"><strong id="statMessages">0</strong><span>Mensagens</span></div>
+<div class="stat-card"><strong id="statStudents">0</strong><span>Alunos</span></div>
+<div class="stat-card"><strong id="statAvgProgress">0%</strong><span>Progresso médio</span></div>
+</div>
+<div class="admin-card"><h4>Comece por aqui</h4><p style="color:var(--ink-soft);line-height:1.6;font-size:.88rem;margin:0 0 16px;">Crie <strong>módulos</strong> em Atividades, Biblioteca, Quiz e Vídeos, e publique conteúdo dentro de cada módulo — assim como no Cultiva.</p><div class="admin-actions"><button class="btn-solid btn-small" onclick="openAdminSection('paginas')">Editar páginas</button><button class="btn-secondary" onclick="openAdminSection('atividades')">Adicionar atividade</button></div></div>
+</section>
+<section class="admin-section" id="admin-sec-paginas">
+<div class="admin-card">
+<h4>Editor de páginas</h4>
+<div class="page-selector">
+<div class="admin-field"><label>Página</label><select id="pageEditorSelect" onchange="loadPageEditor()"></select></div>
+<div class="editor-help">Edite os textos visíveis da página abaixo. A edição preserva as funções, botões e interações do portal. Para conteúdo novo, use o campo de bloco adicional.</div>
+</div>
+<div class="editor-fields" id="pageEditorFields"></div>
+<div class="admin-actions" style="margin-top:16px;"><button class="btn-solid btn-small" onclick="savePageEditor()">Salvar alterações</button><button class="btn-secondary" onclick="resetPageEditor()">Restaurar página</button></div>
+</div>
+<div class="admin-card"><h4>Adicionar conteúdo</h4><div class="admin-field"><label>Bloco adicional (HTML simples)</label><textarea id="pageExtraHtml" placeholder="Ex.: &lt;div class='card'&gt;&lt;h3&gt;Novo conteúdo&lt;/h3&gt;&lt;p&gt;Texto...&lt;/p&gt;&lt;/div&gt;"></textarea></div><div class="admin-actions" style="margin-top:10px;"><button class="btn-solid btn-small" onclick="savePageExtra()">Adicionar bloco</button></div></div>
+</section>
+<section class="admin-section" id="admin-sec-atividades">
+<div id="moduleAdmin-atividades"></div>
+</section>
+<section class="admin-section" id="admin-sec-desafios">
+<div class="admin-card">
+<h4 id="challengeFormTitle">Novo desafio</h4>
+<input id="editingChallengeId" type="hidden"/>
+<div class="admin-field full"><label>Texto do desafio</label><input id="challengeText" placeholder="Ex.: Fazer uma caminhada de 20 minutos" type="text"/></div>
+<div class="admin-actions" style="margin-top:14px;"><button class="btn-solid btn-small" id="challengeSaveBtn" onclick="saveChallenge()">Adicionar desafio</button><button class="btn-secondary" onclick="clearChallengeForm()">Limpar</button></div>
+</div>
+<div class="admin-card"><h4>Desafios da semana publicados</h4><div class="admin-list" id="challengeAdminList"></div></div>
+</section>
+<section class="admin-section" id="admin-sec-biblioteca">
+<div id="moduleAdmin-biblioteca"></div>
+</section>
+<section class="admin-section" id="admin-sec-quiz">
+<div id="moduleAdmin-quiz"></div>
+</section>
+<section class="admin-section" id="admin-sec-videos">
+<div id="moduleAdmin-videos"></div>
+</section>
+<section class="admin-section" id="admin-sec-mensagens">
+<div class="admin-card"><h4>Mensagens recebidas</h4><div class="admin-list" id="contactAdminList"></div></div>
+<div class="admin-card"><h4>Feedback recebido</h4><div class="admin-list" id="feedbackAdminList"></div></div>
+</section>
+<section class="admin-section" id="admin-sec-config">
+<div class="admin-card"><h4>Configurações do portal</h4><div class="admin-form-grid"><div class="admin-field"><label>Nome do site</label><input id="siteNameConfig" type="text" value="Movimentamente"/></div><div class="admin-field"><label>Subtítulo</label><input id="siteSubConfig" type="text" value="Educação • Saúde • Movimento"/></div><div class="admin-field full"><label>Descrição do rodapé</label><textarea id="footerDescConfig">Portal educativo dedicado à saúde mental, movimento, sono e cidadania na vida estudantil.</textarea></div></div><div class="admin-actions" style="margin-top:14px;"><button class="btn-solid btn-small" onclick="saveSiteConfig()">Salvar configurações</button></div></div>
+<div class="admin-card"><h4>Segurança</h4><p style="color:var(--ink-soft);font-size:.82rem;line-height:1.5;margin:0 0 12px;">A senha atual está definida no próprio arquivo HTML. Para segurança real, o projeto precisa de backend e autenticação de servidor.</p><button class="btn-secondary" onclick="showToast('Para segurança real, use autenticação no servidor.')">Ver orientação</button></div>
+</section>
+</main>
+</div>
+</div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+<footer>
+<div class="footer-inner">
+<div class="fcol" style="max-width:320px;">
+<h4>Movimentamente</h4>
+<p>Portal educativo dedicado à saúde mental, movimento, sono e cidadania na vida estudantil.</p>
+</div>
+<div class="fcol">
+<h4>Navegar</h4>
+<button onclick="goTo('inicio')">Início</button>
+<button onclick="goTo('sobre')">Sobre o Projeto</button>
+<button onclick="goTo('biblioteca')">Biblioteca</button>
+<button onclick="goTo('sobre')">Contato</button>
+</div>
+<div class="fcol">
+<h4>Acesso</h4>
+<button onclick="goTo('professor')">Área do Professor</button>
+</div>
+</div>
+</footer>
+<!-- BOTTOM NAV -->
+<div class="bottom-nav" id="bottomNav"></div>
+
+<script defer="True" src="assets/app.js?v=20260820-02"></script></body>
 </html>
