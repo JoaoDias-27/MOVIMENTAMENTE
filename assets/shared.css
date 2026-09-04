@@ -1062,3 +1062,10 @@
         white-space:nowrap;
     }
 }
+
+
+/* ===== SOBRE O PROJETO — HOME CARD ===== */
+.about-project-card{cursor:pointer;transition:transform .15s ease,box-shadow .18s ease,border-color .18s ease;}
+.about-project-card:hover{transform:translateY(-3px);box-shadow:0 20px 34px -26px rgba(5,41,63,.55);}
+.about-project-link{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--blue-dark);}
+@media(max-width:600px){.about-project-card{padding:16px;gap:12px}.about-project-card .pillar-ico{width:46px;height:46px}.about-project-card h3{font-size:1rem;line-height:1.25}.about-project-card p{font-size:.82rem;line-height:1.45}.about-project-link{font-size:.76rem}}
