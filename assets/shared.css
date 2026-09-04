@@ -1069,3 +1069,34 @@
 .about-project-card:hover{transform:translateY(-3px);box-shadow:0 20px 34px -26px rgba(5,41,63,.55);}
 .about-project-link{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:800;color:var(--blue-dark);}
 @media(max-width:600px){.about-project-card{padding:16px;gap:12px}.about-project-card .pillar-ico{width:46px;height:46px}.about-project-card h3{font-size:1rem;line-height:1.25}.about-project-card p{font-size:.82rem;line-height:1.45}.about-project-link{font-size:.76rem}}
+
+
+/* ===== CORES DOS CARDS DA HOME ===== */
+.library-card{
+  background:linear-gradient(135deg,#12B4F0 0%,#0B87BE 100%) !important;
+  border-color:#12B4F0 !important;
+  color:#fff !important;
+}
+.library-card h3,
+.library-card p,
+.library-card .about-project-link{
+  color:#fff !important;
+}
+.library-card .pillar-ico{
+  background:rgba(255,255,255,.20) !important;
+  color:#fff !important;
+}
+.about-project-card{
+  background:linear-gradient(135deg,#7C5CFC 0%,#6D28D9 100%) !important;
+  border-color:#7C5CFC !important;
+  color:#fff !important;
+}
+.about-project-card h3,
+.about-project-card p,
+.about-project-card .about-project-link{
+  color:#fff !important;
+}
+.about-project-card .pillar-ico{
+  background:rgba(255,255,255,.20) !important;
+  color:#fff !important;
+}
