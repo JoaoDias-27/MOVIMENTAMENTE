@@ -1,0 +1,42 @@
+name: Aplicar cores dos cards da Home
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/aplicar-cores-home.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  aplicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Aplicar cores e textos brancos
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('assets/shared.css')
+          s = p.read_text(encoding='utf-8')
+          marker = '/* ===== CORES DOS CARDS DA HOME ===== */'
+          if marker not in s:
+              s += '''\n\n/* ===== CORES DOS CARDS DA HOME ===== */\n.library-card{\n  background:linear-gradient(135deg,#12B4F0 0%,#0B87BE 100%) !important;\n  border-color:#12B4F0 !important;\n  color:#fff !important;\n}\n.library-card h3,\n.library-card p,\n.library-card .about-project-link{\n  color:#fff !important;\n}\n.library-card .pillar-ico{\n  background:rgba(255,255,255,.20) !important;\n  color:#fff !important;\n}\n.about-project-card{\n  background:linear-gradient(135deg,#7C5CFC 0%,#6D28D9 100%) !important;\n  border-color:#7C5CFC !important;\n  color:#fff !important;\n}\n.about-project-card h3,\n.about-project-card p,\n.about-project-card .about-project-link{\n  color:#fff !important;\n}\n.about-project-card .pillar-ico{\n  background:rgba(255,255,255,.20) !important;\n  color:#fff !important;\n}\n'''
+              p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commitar alterações
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/shared.css
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração necessária."
+          else
+            git commit -m "style: aplicar fundo azul e violeta aos cards da Home"
+            git push
+          fi
