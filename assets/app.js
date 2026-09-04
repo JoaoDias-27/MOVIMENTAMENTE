@@ -48,7 +48,6 @@ const SECTIONS = [
   {id:'inicio', label:'Início', icon:'home', bottom:true},
   {id:'sobre', label:'Sobre o Projeto', icon:'info'},
   {id:'movimento', label:'Movimento e Bem-estar', icon:'movement'},
-  {id:'espaco-estudante', label:'Espaço do Estudante', icon:'student-space', bottom:true, bottomLabel:'Estudar'},
   {id:'biblioteca', label:'Biblioteca', icon:'library', bottom:true},
   {id:'quiz', label:'Quiz', icon:'quiz', bottom:true},
   {id:'atividades', label:'Atividades', icon:'activities', bottom:true},
