@@ -1042,3 +1042,23 @@
         height:36px;
     }
 }
+
+@media(max-width:600px){
+
+    .filter-row{
+        display:flex;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        padding-bottom:4px;
+        scrollbar-width:none;
+    }
+
+    .filter-row::-webkit-scrollbar{
+        display:none;
+    }
+
+    .chip{
+        flex:0 0 auto;
+        white-space:nowrap;
+    }
+}
