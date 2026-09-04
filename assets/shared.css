@@ -826,3 +826,185 @@
       padding:0 10px;
     }
   }
+/* =========================================================
+   BIBLIOTECA — RESPONSIVIDADE CELULAR E TABLET
+   ========================================================= */
+
+.resource-item{
+    width:100%;
+    min-width:0;
+}
+
+.resource-item > div:last-child{
+    min-width:0;
+    flex:1 1 auto;
+}
+
+.resource-item h4{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.resource-item p{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.resource-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    max-width:100%;
+    margin-top:6px;
+    padding:8px 12px;
+    border-radius:10px;
+    background:#EAF7FC;
+    color:var(--blue-dark);
+    font-size:.8rem;
+    font-weight:800;
+    text-decoration:none;
+    transition:.18s ease;
+}
+
+.resource-link:hover{
+    background:#DDF2FA;
+    transform:translateY(-1px);
+}
+
+/* Tablets */
+@media (max-width: 850px){
+
+    .wrap{
+        width:100%;
+        max-width:100%;
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    .module-public-block{
+        margin-bottom:22px;
+    }
+
+    .module-public-head{
+        align-items:flex-start;
+        flex-wrap:wrap;
+    }
+
+    .module-public-head h3{
+        font-size:1rem;
+        line-height:1.25;
+    }
+
+    .resource-item{
+        padding:14px;
+        gap:12px;
+    }
+}
+
+/* Celulares */
+@media (max-width: 600px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    .wrap{
+        padding:16px 12px 10px;
+    }
+
+    .section-title{
+        font-size:1.3rem;
+        line-height:1.2;
+    }
+
+    .section-sub{
+        font-size:.88rem;
+        line-height:1.5;
+    }
+
+    .filter-row{
+        width:100%;
+        gap:7px;
+    }
+
+    .chip{
+        padding:7px 11px;
+        font-size:.75rem;
+    }
+
+    .module-public-block{
+        margin-bottom:20px;
+    }
+
+    .module-public-head{
+        gap:7px;
+        margin-bottom:10px;
+    }
+
+    .module-public-head h3{
+        font-size:.95rem;
+        flex:1 1 100%;
+    }
+
+    .module-public-head .m-badge{
+        font-size:.68rem;
+    }
+
+    .resource-item{
+        display:flex;
+        align-items:flex-start;
+        gap:10px;
+        padding:13px;
+        border-radius:16px;
+        margin-bottom:10px;
+    }
+
+    .resource-ico{
+        width:40px;
+        height:40px;
+        border-radius:11px;
+        font-size:1rem;
+    }
+
+    .resource-item h4{
+        font-size:.92rem;
+        line-height:1.3;
+        margin-top:5px !important;
+    }
+
+    .resource-item p{
+        font-size:.8rem;
+        line-height:1.45;
+    }
+
+    .resource-link{
+        font-size:.76rem;
+        padding:8px 10px;
+    }
+}
+
+/* Celulares muito pequenos */
+@media (max-width: 380px){
+
+    .wrap{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .resource-item{
+        padding:11px;
+    }
+
+    .resource-ico{
+        width:36px;
+        height:36px;
+    }
+
+    .resource-item h4{
+        font-size:.88rem;
+    }
+
+    .resource-item p{
+        font-size:.77rem;
+    }
+}
