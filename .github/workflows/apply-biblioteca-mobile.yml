@@ -1,0 +1,149 @@
+name: Aplicar melhorias da Biblioteca
+
+on:
+  push:
+    branches:
+      - melhoria-biblioteca-mobile
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Aplicar alterações
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+
+          # Remove standalone Student Space files.
+          for p in [root/'estudante'/'index.html', root/'estudante'/'index.css', root/'estudante'/'index.js']:
+              if p.exists():
+                  p.unlink()
+          d = root/'estudante'
+          if d.exists() and not any(d.iterdir()):
+              d.rmdir()
+
+          # Remove Student Space card/section/footer entry from the main page.
+          index = root/'index.html'
+          s = index.read_text(encoding='utf-8')
+          student_card = '''<div class="card grad-card g-orange pillar-card" onclick="goTo('espaco-estudante')">
+  <div aria-hidden="true" class="pillar-ico" data-icon="student-space" style="background:rgba(255,255,255,.25)"></div>
+  <div><h3>Espaço do Estudante</h3><p>Atividades enviadas pelos professores.</p></div>
+  </div>'''
+          s = s.replace(student_card, '')
+          s = re.sub(r'<!--\s*4\.\s*ESPAÇO DO ESTUDANTE\s*-->.*?(?=<!--\s*5\.\s*BIBLIOTECA\s*-->)', '', s, flags=re.S|re.I)
+          s = re.sub(r'<button[^>]*onclick="goTo\(\s*[\'\"]espaco-estudante[\'\"]\s*\)"[^>]*>.*?</button>', '', s, flags=re.S|re.I)
+          s = s.replace('<!-- 5. BIBLIOTECA -->', '<!-- 4. BIBLIOTECA -->')
+          index.write_text(s, encoding='utf-8')
+
+          # Remove Student Space from navigation/editor metadata and unused icon.
+          app = root/'assets'/'app.js'
+          s = app.read_text(encoding='utf-8')
+          s = re.sub(r"\s*\{id:'espaco-estudante',\s*label:'Espaço do Estudante',\s*icon:'student-space',\s*bottom:true,\s*bottomLabel:'Estudar'\},?", '', s)
+          s = re.sub(r"\s*'espaco-estudante':\{label:'Espaço do Estudante',title:'Página do estudante'\},?", '', s)
+          s = re.sub(r"\s*'espaco-estudante':\{label:'Espaço do Estudante',title:'Espaço do estudante'\},?", '', s)
+          s = re.sub(r"\s*'student-space':'<svg.*?</svg>',?", '', s, count=1, flags=re.S)
+
+          # Compact public Library links: never print huge URLs in cards.
+          new_library = r'''function renderLibraryPublic(){
+            const el = document.getElementById('libraryList'); if(!el) return;
+            const modules = (window._modules.biblioteca||[]).filter(m=>(m.items||[]).length);
+            if(!modules.length){ el.innerHTML = emptyStateMarkup('file','Nenhum material publicado ainda.<br>Volte em breve!'); return; }
+            el.innerHTML = modules.map(m=>`
+              <div class="module-public-block">
+                <div class="module-public-head"><h3>${escapeHtml(m.title)}</h3><span class="m-badge">${m.items.length} material(is)</span></div>
+                ${m.items.map(it=>`<article class="resource-item">
+                  <div class="resource-ico g-purple" aria-hidden="true">📄</div>
+                  <div class="resource-content">
+                    ${it.topic?`<span class="resource-tag">${escapeHtml(it.topic)}</span>`:''}
+                    <h4>${escapeHtml(it.title)}</h4>
+                    ${it.desc?`<p>${escapeHtml(it.desc)}</p>`:''}
+                    ${it.link?`<a href="${/^https?:\/\//.test(it.link)?it.link:'#'}" target="_blank" rel="noopener noreferrer" class="resource-link">🔗 Abrir material</a>`:''}
+                  </div>
+                </article>`).join('')}
+              </div>`).join('');
+            updateHomeLibraryTeaser();
+          }
+          function updateHomeLibraryTeaser(){'''
+          s2, n = re.subn(r'function renderLibraryPublic\(\)\{.*?function updateHomeLibraryTeaser\(\)\{', new_library, s, count=1, flags=re.S)
+          if n != 1:
+              raise SystemExit('Não foi possível localizar renderLibraryPublic para atualização segura.')
+          app.write_text(s2, encoding='utf-8')
+
+          # Mobile/tablet Library styling.
+          css = root/'assets'/'shared.css'
+          s = css.read_text(encoding='utf-8')
+          marker = '/* ===== BIBLIOTECA MOBILE/TABLET — MOVIMENTAMENTE ===== */'
+          if marker not in s:
+              s += r'''
+
+/* ===== BIBLIOTECA MOBILE/TABLET — MOVIMENTAMENTE ===== */
+#page-biblioteca{overflow-x:hidden;}
+#page-biblioteca .resource-item{width:100%;min-width:0;box-sizing:border-box;}
+#page-biblioteca .resource-content{flex:1 1 auto;min-width:0;}
+#page-biblioteca .resource-item h4,#page-biblioteca .resource-item p{overflow-wrap:anywhere;word-break:break-word;}
+#page-biblioteca .resource-link{display:inline-flex;align-items:center;gap:6px;max-width:100%;box-sizing:border-box;margin-top:7px;padding:8px 12px;border-radius:10px;background:#EAF7FC;color:var(--blue-dark);font-size:.8rem;font-weight:800;line-height:1.2;text-decoration:none;transition:transform .18s ease,background .18s ease;}
+#page-biblioteca .resource-link:hover{background:#DDF2FA;transform:translateY(-1px);}
+@media(max-width:850px){
+  #page-biblioteca .module-public-head{gap:7px;align-items:flex-start;flex-wrap:wrap;}
+  #page-biblioteca .module-public-head h3{min-width:0;line-height:1.25;}
+  #page-biblioteca .resource-item{gap:12px;padding:14px;}
+}
+@media(max-width:600px){
+  #page-biblioteca .section-title{font-size:1.3rem;line-height:1.2;}
+  #page-biblioteca .section-sub{font-size:.88rem;line-height:1.5;}
+  #page-biblioteca .filter-row{display:flex;flex-wrap:nowrap;overflow-x:auto;padding:2px 1px 6px;scrollbar-width:none;}
+  #page-biblioteca .filter-row::-webkit-scrollbar{display:none;}
+  #page-biblioteca .chip{flex:0 0 auto;white-space:nowrap;padding:7px 11px;font-size:.75rem;}
+  #page-biblioteca .module-public-block{margin-bottom:20px;}
+  #page-biblioteca .module-public-head h3{flex:1 1 100%;font-size:.95rem;}
+  #page-biblioteca .module-public-head .m-badge{font-size:.68rem;}
+  #page-biblioteca .resource-item{gap:10px;padding:13px;border-radius:16px;margin-bottom:10px;}
+  #page-biblioteca .resource-ico{width:40px;height:40px;flex:0 0 40px;border-radius:11px;font-size:1rem;}
+  #page-biblioteca .resource-item h4{font-size:.92rem;line-height:1.3;margin-top:5px !important;}
+  #page-biblioteca .resource-item p{font-size:.8rem;line-height:1.45;}
+  #page-biblioteca .resource-link{font-size:.76rem;padding:8px 10px;}
+}
+@media(max-width:380px){
+  #page-biblioteca .resource-item{padding:11px;}
+  #page-biblioteca .resource-ico{width:36px;height:36px;flex-basis:36px;}
+  #page-biblioteca .resource-item h4{font-size:.88rem;}
+  #page-biblioteca .resource-item p{font-size:.77rem;}
+}
+'''
+          css.write_text(s, encoding='utf-8')
+
+          # Remove this workflow after the migration.
+          wf = root/'.github'/'workflows'/'apply-biblioteca-mobile.yml'
+          if wf.exists():
+              wf.unlink()
+
+      - name: Verificar alterações
+        run: |
+          test ! -d estudante
+          grep -q "page-biblioteca" index.html
+          ! grep -q "goTo('espaco-estudante')" index.html || exit 1
+          ! grep -q "id:'espaco-estudante'" assets/app.js || exit 1
+          grep -q "resource-link" assets/app.js
+          grep -q "BIBLIOTECA MOBILE/TABLET" assets/shared.css
+
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração para commitar."
+          else
+            git commit -m "Remover espaço do estudante e adaptar biblioteca para mobile"
+            git push
+          fi
