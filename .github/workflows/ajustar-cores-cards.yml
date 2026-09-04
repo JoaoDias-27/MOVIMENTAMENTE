@@ -53,3 +53,5 @@ EOF
           git diff --cached --quiet && exit 0
           git commit -m "style: aplicar cores finais dos cards"
           git push
+
+# Disparo para aplicar o ajuste na branch main.
