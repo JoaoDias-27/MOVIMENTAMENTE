@@ -1277,7 +1277,7 @@ function renderLibraryPublic(){
   el.innerHTML = modules.map(m=>`
     <div class="module-public-block">
       <div class="module-public-head"><h3>${escapeHtml(m.title)}</h3><span class="m-badge">${m.items.length} material(is)</span></div>
-      ${m.items.map(it=>`<div class="resource-item"><div class="resource-ico g-purple">📄</div><div style="flex:1;">${it.topic?`<span class="resource-tag">${escapeHtml(it.topic)}</span>`:''}<h4 style="margin-top:6px;">${escapeHtml(it.title)}</h4><p>${escapeHtml(it.desc||'')}</p>${it.link?`<a href="${/^https?:\/\//.test(it.link)?it.link:'#'}" target="_blank" style="font-size:.82rem;font-weight:700;color:var(--blue-dark);">🔗 ${escapeHtml(it.link)}</a>`:''}</div></div>`).join('')}
+      ${m.items.map(it=>`<div class="resource-item"><div class="resource-ico g-purple">📄</div><div style="flex:1;">${it.topic?`<span class="resource-tag">${escapeHtml(it.topic)}</span>`:''}<h4 style="margin-top:6px;">${escapeHtml(it.title)}</h4><p>${escapeHtml(it.desc||'')}</p>${it.link ? `<a href="${/^https?:\/\//.test(it.link) ? it.link : '#'}"target="_blank"rel="noopener noreferrer"class="resource-link">🔗 Abrir material</a>` : ''}</div></div>`).join('')}
     </div>`).join('');
   updateHomeLibraryTeaser();
 }
