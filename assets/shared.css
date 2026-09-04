@@ -1008,3 +1008,37 @@
         font-size:.77rem;
     }
 }
+@media(max-width:600px){
+
+    .topbar-inner{
+        padding:8px 12px;
+        gap:8px;
+    }
+
+    .site-logo{
+        gap:7px;
+    }
+
+    .site-logo-img{
+        width:42px;
+        height:42px;
+    }
+
+    .site-brand-name{
+        font-size:1rem;
+    }
+
+    .topbar-actions{
+        gap:6px;
+    }
+
+    .pill{
+        padding:5px 9px;
+        font-size:.75rem;
+    }
+
+    .hamburger{
+        width:36px;
+        height:36px;
+    }
+}
