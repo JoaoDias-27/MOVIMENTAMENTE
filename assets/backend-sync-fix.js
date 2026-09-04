@@ -30,6 +30,7 @@
     window._modules=next;
     window._selectedModule=window._selectedModule||{};
     TYPES.forEach(t=>{if(!window._selectedModule[t]||!next[t].some(m=>m.id===window._selectedModule[t]))window._selectedModule[t]=next[t][0]?.id||null;});
+    if(typeof window.renderAllPublicModules==='function') window.renderAllPublicModules();
   };
   window.renderAtividadesPublic=function(){
     const host=document.getElementById('atividadesModulesView');if(!host)return;const modules=window._modules.atividades||[];
@@ -48,4 +49,20 @@
     if(!modules.length){host.innerHTML='<div class="empty-state">Nenhum material publicado ainda.<br>Volte em breve!</div>';return;}
     host.innerHTML=modules.map(m=>'<div class="module-public-block"><div class="module-public-head"><h3>'+escapeHtml(m.title)+'</h3><span class="m-badge">'+(m.items||[]).length+' material(is)</span></div>'+m.items.map(it=>'<div class="resource-item"><div class="resource-ico g-purple">📄</div><div style="flex:1"><h4>'+escapeHtml(it.title||'Material')+'</h4><p>'+escapeHtml(it.desc||'')+'</p>'+(it.link?'<a href="'+escapeAttr(it.link)+'" target="_blank" rel="noopener" class="resource-link">🔗 Abrir material</a>':'')+'</div></div>').join('')+'</div>').join('');
   };
+
+  // O core inicia uma carga assíncrona própria e pode terminar depois deste
+  // arquivo, substituindo temporariamente os módulos por uma cópia vazia.
+  // Quando essa inicialização terminar, fazemos uma nova leitura autoritativa
+  // do Supabase e renderizamos novamente. Assim a nuvem sempre vence o cache.
+  const refreshAfterCore=async()=>{
+    try{
+      if(window._movimentamenteCoreReady) await window._movimentamenteCoreReady;
+    }catch(e){ console.warn('[Movimentamente] Core terminou com erro; usando sincronização direta.',e); }
+    await window.loadAllModules();
+  };
+  if(document.readyState==='loading'){
+    window.addEventListener('DOMContentLoaded',()=>{refreshAfterCore();}, {once:true});
+  }else{
+    refreshAfterCore();
+  }
 })();
