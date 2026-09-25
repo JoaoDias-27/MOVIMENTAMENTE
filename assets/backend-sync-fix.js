@@ -15,6 +15,19 @@
     return rows.length ? rows[0].storage_value : null;
   }
   function normalize(list){return Array.isArray(list)?list.map(m=>({...m,id:m.id||Date.now().toString(36)+Math.random().toString(36).slice(2,7),title:m.title||m.titulo||'Módulo',items:Array.isArray(m.items)?m.items:[]})):[]}
+  async function mmSha256(s){const b=new TextEncoder().encode(s),h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+  window.mmUploadMedia=async function(file,folder){
+    if(!file) return '';
+    const pwd=window.teacherSessionPassword||document.getElementById('profPass')?.value;
+    if(!pwd) throw new Error('Faça o login do professor antes de enviar arquivos.');
+    const prefix=await mmSha256(pwd);
+    const safe=(file.name||'arquivo').replace(/[^a-zA-Z0-9._-]/g,'_');
+    const path=prefix+'/'+folder+'/'+Date.now()+'-'+safe;
+    const u=URL+'/storage/v1/object/movimentamente-media/'+path;
+    const r=await fetch(u,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':file.type||'application/octet-stream','x-upsert':'false'},body:file});
+    if(!r.ok) throw new Error('Falha no upload do arquivo ('+r.status+')');
+    return URL+'/storage/v1/object/public/movimentamente-media/'+path;
+  };
   window.loadAllModules=async function(){
     const next={};
     for(const type of TYPES){
