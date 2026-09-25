@@ -52,6 +52,8 @@ const SECTIONS = [
   {id:'quiz', label:'Quiz', icon:'quiz', bottom:true},
   {id:'atividades', label:'Atividades', icon:'activities', bottom:true},
   {id:'videos', label:'Vídeos', icon:'video', bottom:true},
+  {id:'especialista', label:'Fala com o especialista', icon:'video'},
+  {id:'biografia', label:'Biografia', icon:'profile'},
 ];
 const LOCAL_TEACHER_PASSWORD_FALLBACK = 'movimenta2026';
 const SUPABASE_URL = 'https://bjglrljgeamqkhusgxop.supabase.co';
