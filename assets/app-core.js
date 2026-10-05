@@ -67,7 +67,9 @@ const SUPABASE_SHARED_KEYS = new Set([
   'videos-modules',
   'week-challenges',
   'page-edits',
-  'site-config'
+  'site-config',
+  'especialista-content',
+  'biografia-content'
 ]);
 let isTeacher = false;
 let teacherSessionPassword = '';
