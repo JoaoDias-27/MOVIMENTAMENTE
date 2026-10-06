@@ -25,7 +25,7 @@
     const path=prefix+'/'+folder+'/'+Date.now()+'-'+safe;
     const u=URL+'/storage/v1/object/movimentamente-media/'+path;
     const r=await fetch(u,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':file.type||'application/octet-stream','x-upsert':'false'},body:file});
-    if(!r.ok) throw new Error('Falha no upload do arquivo ('+r.status+')');
+    if(!r.ok){let detail='';try{detail=await r.text()}catch(e){}throw new Error('Falha no upload do arquivo ('+r.status+')'+(detail?': '+detail:''));}
     return URL+'/storage/v1/object/public/movimentamente-media/'+path;
   };
   window.loadAllModules=async function(){
