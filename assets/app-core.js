@@ -651,11 +651,44 @@ async function saveChallenge(){
   const id=document.getElementById('editingChallengeId').value;
   const text=document.getElementById('challengeText').value.trim();
   if(!text){ showToast('Digite o texto do desafio'); return; }
+  if(!teacherSessionPassword){
+    showToast('Sua sessão de professor expirou. Entre novamente para publicar o desafio.');
+    console.error('[Movimentamente] Publicação de desafio bloqueada: sessão do professor sem senha.');
+    return;
+  }
   window._challenges = window._challenges||[];
-  if(id){ const item=window._challenges.find(x=>x.id===id); if(item) item.text=text; showToast('Desafio atualizado!'); }
-  else { window._challenges.push({id:uid(), text}); showToast('Desafio adicionado!'); }
-  await storageSetList('week-challenges', window._challenges);
-  clearChallengeForm(); renderChallenges(); renderChallengeAdmin();
+  let item;
+  if(id){
+    item=window._challenges.find(x=>x.id===id);
+    if(item) item.text=text;
+    else { item={id,text}; window._challenges.push(item); }
+  }else{
+    item={id:uid(),text};
+    window._challenges.push(item);
+  }
+  const saved=await storageSetList('week-challenges', window._challenges);
+  if(!saved || storageBackend!=='supabase'){
+    showToast('Não foi possível confirmar a publicação no Supabase. Confira a conexão e tente novamente.');
+    console.error('[Movimentamente] Desafio não confirmado no Supabase.',{saved,storageBackend});
+    return;
+  }
+  try{
+    const confirmed=await storageGetList('week-challenges');
+    if(!confirmed.some(x=>x.id===item.id && x.text===item.text)){
+      showToast('O Supabase não confirmou o desafio. Tente publicar novamente.');
+      console.error('[Movimentamente] Desafio não encontrado após releitura do Supabase.',item);
+      return;
+    }
+    window._challenges=confirmed;
+  }catch(e){
+    console.error('[Movimentamente] Falha ao verificar o desafio publicado.',e);
+    showToast('O desafio foi enviado, mas não foi possível confirmar a leitura do Supabase.');
+    return;
+  }
+  clearChallengeForm();
+  renderChallenges();
+  renderChallengeAdmin();
+  showToast('Desafio publicado e confirmado no Supabase.');
 }
 function editChallenge(id){
   const i=(window._challenges||[]).find(x=>x.id===id); if(!i) return;
