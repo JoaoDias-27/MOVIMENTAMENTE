@@ -1621,7 +1621,28 @@ function setupAutoSave(){
             await storageSetList('week-challenges',window._challenges);
             renderChallenges(); renderChallengeAdmin(); updateAdminStats();
           }
-          showToast('Desafio salvo automaticamente e publicado para o aluno.');
+          if(!teacherSessionPassword || storageBackend!=='supabase'){
+            showToast('O desafio está apenas no navegador. Entre novamente como professor e publique para sincronizar.');
+            console.error('[Movimentamente] Auto-save de desafio sem confirmação Supabase.',{hasTeacherSession:!!teacherSessionPassword,storageBackend});
+          }else{
+            try{
+              const confirmed=await storageGetList('week-challenges');
+              const current=(window._challenges||[]).find(x=>x.id===(document.getElementById('editingChallengeId')||{}).value);
+              const expected=current||((window._challenges||[]).find(x=>x.text===value));
+              if(expected && confirmed.some(x=>x.id===expected.id && x.text===expected.text)){
+                window._challenges=confirmed;
+                renderChallenges();
+                renderChallengeAdmin();
+                showToast('Desafio salvo e confirmado no Supabase.');
+              }else{
+                showToast('Não foi possível confirmar o desafio no Supabase. Use Publicar desafio novamente.');
+                console.error('[Movimentamente] Auto-save não apareceu na releitura do Supabase.',{expected,confirmed});
+              }
+            }catch(err){
+              showToast('Falha ao confirmar o desafio no Supabase. Tente publicar novamente.');
+              console.error('[Movimentamente] Erro ao verificar auto-save do desafio.',err);
+            }
+          }
         }else{
           showToast('Rascunho salvo automaticamente.');
         }
