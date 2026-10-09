@@ -10,9 +10,9 @@
   function run(text){var s=document.createElement('script');s.text=text;document.head.appendChild(s);}
   function css(url){var l=document.createElement('link');l.rel='stylesheet';l.href=url;document.head.appendChild(l);}
   try{
-    run(loadSync('assets/app-core.js?v=20260925-01'));
-    run(loadSync('assets/backend-sync-fix.js?v=20260925-01'));
-    css('assets/content-pages.css?v=20260925-01');
-    run(loadSync('assets/content-pages.js?v=20260925-01'));
+    run(loadSync('assets/app-core.js?v=20261009-01'));
+    run(loadSync('assets/backend-sync-fix.js?v=20261009-01'));
+    css('assets/content-pages.css?v=20261009-01');
+    run(loadSync('assets/content-pages.js?v=20261009-01'));
   }catch(e){console.error('[Movimentamente] Falha ao iniciar o portal',e);}
 })();
