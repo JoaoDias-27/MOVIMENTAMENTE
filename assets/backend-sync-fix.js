@@ -1,11 +1,11 @@
 /* Movimentamente — correção de sincronização compartilhada (Supabase) */
 (function(){
-  const URL='https://bjglrljgeamqkhusgxop.supabase.co';
+  const SUPABASE_URL='https://bjglrljgeamqkhusgxop.supabase.co';
   const KEY='sb_publishable_-4xysATL3AALbRJ2WMZnQg_mYIAIrxk';
   const TYPES=['quiz','biblioteca','atividades','videos'];
   const PREFIX='movimentamente_';
   async function read(key){
-    const u=new URL(URL+'/rest/v1/app_storage');
+    const u=new URL(SUPABASE_URL+'/rest/v1/app_storage');
     u.searchParams.set('select','storage_value');
     u.searchParams.set('storage_key','eq.'+key);
     u.searchParams.set('limit','1');
@@ -23,10 +23,10 @@
     const prefix=await mmSha256(pwd);
     const safe=(file.name||'arquivo').replace(/[^a-zA-Z0-9._-]/g,'_');
     const path=prefix+'/'+folder+'/'+Date.now()+'-'+safe;
-    const u=URL+'/storage/v1/object/movimentamente-media/'+path;
+    const u=SUPABASE_URL+'/storage/v1/object/movimentamente-media/'+path;
     const r=await fetch(u,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':file.type||'application/octet-stream','x-upsert':'false'},body:file});
     if(!r.ok){let detail='';try{detail=await r.text()}catch(e){}throw new Error('Falha no upload do arquivo ('+r.status+')'+(detail?': '+detail:''));}
-    return URL+'/storage/v1/object/public/movimentamente-media/'+path;
+    return SUPABASE_URL+'/storage/v1/object/public/movimentamente-media/'+path;
   };
   window.loadAllModules=async function(){
     const next={};
